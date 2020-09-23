@@ -1,6 +1,6 @@
 {
   "name": "practice",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "youtube node js practice app",
   "main": "app.js",
   "scripts": {
