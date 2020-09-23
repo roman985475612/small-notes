@@ -16,6 +16,12 @@ const getNotes = (callback) => {
     })
 }
 
+const saveNotes = (content) => {
+    fs.writeFile(notePath, JSON.stringify(content), err => {
+        if (err) throw new Error(err)
+    })
+}
+
 const addNote = (title, text) => {
     getNotes((notes) => {
         const dublicateNote = notes.find(note => note.title === title)
@@ -24,11 +30,27 @@ const addNote = (title, text) => {
             console.log(chalk.red.inverse('Заметка с таким названием уже существует!'))
         } else {
             notes.push({ title, text })
+            saveNotes(notes)
             console.log(chalk.green.inverse('Заметка добавлена!'))
+        }
+    })
+}
+
+const listNotes = () => {
+    getNotes(notes => {
+        if (notes.length !== 0) {
+            console.log(chalk.inverse('Ваши заметки...'))
+
+            notes.forEach((note) => {
+                console.log(note.title)
+            });
+        } else {
+            console.log(chalk.blue('Заметок пока нет...'))
         }
     })
 }
 
 module.exports = {
     addNote,
+    listNotes,
 }

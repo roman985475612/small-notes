@@ -28,7 +28,7 @@ yargs.command({
     command: 'list',
     describe: 'Показать список заметок',
     handler() {
-        console.log('List command')
+        notes.listNotes()
     }
 })
 
