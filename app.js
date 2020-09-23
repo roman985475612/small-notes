@@ -35,16 +35,30 @@ yargs.command({
 yargs.command({
     command: 'show',
     describe: 'Показать заметку',
-    handler() {
-        console.log('Show command')
+    builder: {
+        title: {
+            type: 'string',
+            demandOption: true,
+            describe: 'Название заметки'
+        },
+    },
+    handler({title}) {
+        notes.showNote(title)
     }
 })
 
 yargs.command({
     command: 'remove',
     describe: 'Удалить заметку',
-    handler() {
-        console.log('Remove command')
+    builder: {
+        title: {
+            type: 'string',
+            demandOption: true,
+            describe: 'Название заметки'
+        },
+    },
+    handler({title}) {
+        notes.removeNote(title)
     }
 })
 

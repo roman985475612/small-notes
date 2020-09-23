@@ -1,3 +1,4 @@
+const { Color } = require('chalk')
 const chalk = require('chalk')
 const fs = require('fs')
 const path = require('path')
@@ -50,7 +51,36 @@ const listNotes = () => {
     })
 }
 
+const showNote = (title) => {
+    getNotes(notes => {
+        const note = notes.find(n => n.title === title)
+
+        if (note) {
+            console.log(chalk.inverse(note.title))
+            console.log(note.text)
+        } else {
+            console.log(chalk.red.inverse(`Заметка с названием "${title}" не найдена`))
+        }
+    })
+}
+
+const removeNote = (title) => {
+    getNotes(notes => {
+        const updatedNotes = notes.filter(note => note.title !== title)
+
+        if (updatedNotes.length !== notes.length) {
+            saveNotes(updatedNotes)
+
+            console.log(chalk.green(`Заметка с названием "${title}" успешно удалена`))
+        } else {
+            console.log(chalk.red.inverse(`Заметка с названием "${title}" не найдена`))
+        }
+    })
+}
+
 module.exports = {
     addNote,
     listNotes,
+    showNote,
+    removeNote,
 }
